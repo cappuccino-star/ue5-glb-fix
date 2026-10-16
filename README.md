@@ -10,7 +10,7 @@ A small tool made with GPT assistance to repair certain UE 5.4 GLB exports that 
 
 **Keep your original files. Repair may remove geometry. Existing `_fixed.glb` outputs may be overwritten.**
 
-The download is the original Windows build; its console messages are in Chinese.
+All program messages are in English.
 
 ## What it fixes
 
@@ -30,3 +30,4 @@ dotnet publish GlbFix.csproj -c Release -r win-x64 --self-contained true -o publ
 ## Feedback
 
 Please include your UE and Blender versions and the import error when reporting an issue. Only share models you have permission to publish.
+
