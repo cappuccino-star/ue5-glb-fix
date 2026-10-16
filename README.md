@@ -1,30 +1,32 @@
 # UE5 GLB Fix
 
-修复部分 UE5.4 导出的 GLB 无法导入 Blender 的问题。借助 GPT 制作，分享给遇到类似问题的人。
+A small tool made with GPT assistance to repair certain UE 5.4 GLB exports that fail to import into Blender. Shared for anyone facing the same issue.
 
-## 使用
+## Usage
 
-1. 下载 [Windows 64 位工具](GlbFix-Windows-x64.zip)，解压。
-2. 将 GLB 文件拖到 `GlbFix.exe` 上，无需安装 Python 或 .NET。
-3. 将生成的 `文件名_fixed.glb` 导入 Blender，检查模型。
+1. Download the [Windows x64 tool](GlbFix-Windows-x64.zip) and extract it.
+2. Drag one or more GLB files onto `GlbFix.exe`. No Python or separate .NET installation is required.
+3. Import the generated `filename_fixed.glb` into Blender and inspect the result.
 
-**请保留原文件。修复会截断越界索引，或移除顶点属性数量不一致的网格片段，可能丢面。已有同名 `_fixed.glb` 会被覆盖。**
+**Keep your original files. Repair may remove geometry. Existing `_fixed.glb` outputs may be overwritten.**
 
-仅针对这两类问题，不保证解决所有 GLB 导入错误。适用于普通、未压缩、非稀疏的三角形 GLB；不支持其他复杂布局。
+The download is the original Windows build; its console messages are in Chinese.
 
-## 源码
+## What it fixes
 
-Windows 版源码为 `Program.cs` 和 `GlbFix.csproj`，使用 .NET 8 SDK 构建：
+- Out-of-range indices: truncates indices from the first invalid triangle onward.
+- Inconsistent vertex attribute counts: removes the affected primitive.
+
+This is a targeted workaround, not a general GLB validator. It assumes ordinary, uncompressed, non-sparse triangle GLB files and does not support other complex layouts. A no-repair message does not guarantee a valid file or successful Blender import.
+
+## Build
+
+Install the .NET 8 SDK, then run:
 
 ```sh
 dotnet publish GlbFix.csproj -c Release -r win-x64 --self-contained true -o publish
 ```
 
+## Feedback
 
-
-## English
-
-A small tool made with GPT assistance for certain UE 5.4 GLB exports that fail to import into Blender. Download the Windows ZIP, extract it, and drag GLB files onto `GlbFix.exe`. Import the generated `_fixed.glb` into Blender.
-
-Keep the original. Repair truncates out-of-range triangle indices or removes primitives with inconsistent vertex attribute counts. Geometry may be lost, and existing `_fixed.glb` outputs may be overwritten. This is a targeted workaround, not a general GLB validator. Inspect the result in Blender.
-
+Please include your UE and Blender versions and the import error when reporting an issue. Only share models you have permission to publish.
